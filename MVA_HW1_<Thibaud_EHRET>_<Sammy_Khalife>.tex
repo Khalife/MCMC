@@ -1,0 +1,110 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc} 
+\usepackage[top=1cm,bottom=1cm,left=0.5cm,right=1.5cm,asymmetric]{geometry}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[R]{\textit{Master MVA : }}
+\fancyfoot[L]{\textit{}}
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[L]{\textit{}}
+\newcommand{\cond}{(x_i|x_{\pi_i})}
+
+%\usepackage{caption}
+%\usepackage{subcaption}
+
+
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+
+
+%\geometry{hmargin=1.5cm,vmargin=2cm}   
+
+\geometry{hmargin=2.5cm,vmargin=2cm}   
+\begin{document}
+
+\section*{Graphical models : Take Home exam}
+\section*{Sammy Khalife}
+\subsubsection*{27/12/2014}
+
+%
+%\begin{tabular}{ l c r }
+%   Gaussian mixture with diagonal sigma  & -2843.47  & -2798.08 \\
+%   \hline
+%   Gaussian mixutre with general sigma & -2370.89 & -2399.30\\
+%   \hline
+%   Hidden markov model & -1916.4 & -1924.6 \\
+% \end{tabular}~\\
+%~\\
+
+%\begin{figure}[!h]
+%   \begin{minipage}[c]{0.5 \linewidth}
+%   \centering
+%    \captionsetup{justification=centering,margin=1cm}
+%      \includegraphics[width=8cm]{EM_proba_most.jpg}
+%      \caption{EM most likely state probability for first 100 points}
+%   \end{minipage} \hfill
+%      \begin{minipage}[c]{0.5 \linewidth}
+%   \centering
+%    \captionsetup{justification=centering,margin=1cm}
+%      \includegraphics[width=8cm]{viterbi_proba_most.jpg}
+%      \caption{Viterbi most likely state probability for first 100 points}
+%   \end{minipage} \hfill
+%\end{figure}~\\
+%~\\
+
+\end{document}
