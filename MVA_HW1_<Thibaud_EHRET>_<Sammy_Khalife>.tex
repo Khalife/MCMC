@@ -46,7 +46,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \renewcommand{\footrulewidth}{1pt}
-\fancyhead[R]{\textit{Master MVA : }}
+\fancyhead[R]{\textit{Master MVA : Simulation based learning}}
 \fancyfoot[L]{\textit{}}
 %\usepackage{unicode-math}
 %\setmathfont{XITS Math}
@@ -77,10 +77,78 @@
 \geometry{hmargin=2.5cm,vmargin=2cm}   
 \begin{document}
 
-\section*{Graphical models : Take Home exam}
-\section*{Sammy Khalife}
-\subsubsection*{27/12/2014}
+\section*{Simulation based learning}
+\section*{Homework 1}
+\section*{Thibaud Ehret \& Sammy Khalife}
+\subsubsection*{25/01/2014}
 
+\section*{Exercise 1}
+1.a. Let us denote $U_{k}$ the algorithm random variable and $S_{k}=\sum_{l=1}^{k}p(l)$ at iteration k. The r.v X follows the p distribution. Indeed it is a discrete r.v and : 
+$$\mathbb{P}(X \leq k)\hat{=}\mathbb{P}(U_{k} \leq S_{k})=length([1,S_{k}])=\sum_{l=1}^{k}p(l)$$~\\
+~\\
+b. Let $\tau$ the time (number of loops) when X is returned :
+$$\tau=\inf_{n}\{n \quad | \quad U_{n} \leq S_{n}\}$$
+Let us denote the event $B_{n}=\{U_{n} \textgreater S_{n}\}$.
+
+$$P(B_{n})=1-\sum_{k=1}^{n}p(k)$$
+Since the $U_{n}$ are i.i.d :
+\begin{eqnarray*}
+\mathbb{P}(\tau=n)=\mathbb{P}(B_{1},.., B_{n-1}, B_{n}^{c})=\quad [\quad \prod_{k=1}^{n-1}\mathbb{P}(B_k) \quad ]\quad \mathbb{P}(B_n^{c})
+\end{eqnarray*}
+
+Then, the number of mean loops required to return X is 
+\begin{eqnarray*}
+	\mathbb{E}[\tau]&=&\sum_{n=1}^{+\infty}\mathbb{P}(\tau=n)n
+\end{eqnarray*}
+With a numerical approximation of this sum (Matlab, N=10000), I obtain a value for the mean number of loops equal to 1.5.~\\
+~\\
+2. a. Given a uniform r.v on [0,1], the density function of the variable $U'=\frac{1}{U}$ is $\frac{1}{u'^{2}}\textbf{1}_{\{u' \geq 1\}}$. To prove it, we can use a change of variable $u'=\frac{1}{u}$ in the integral $\int_{\mathbb{R}}\phi(u)\textbf{1}_{\{u \in [0,1] \}}du$.~\\
+~\\
+Then $\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k)=\mathbb{P}( U' \leq k+1)=\int_{1}^{k+1}\frac{1}{u'^{2}}du'=1-\frac{1}{k+1}$~\\
+~\\
+We conclude that $$\mathbb{P}(\lfloor \frac{1}{U} \rfloor = k)=\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k)-\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k-1)=\frac{1}{k(k+1)}$$
+b. Let $A_{k}=\{\lfloor \frac{1}{U} \rfloor \leq k\}$ and $B=\{V\leq \frac{\lfloor \frac{1}{U} \rfloor +1}{2 \lfloor \frac{1}{U} \rfloor} \}$.~\\
+~\\
+For the ouput X of the algorithm, let us consider the distribution 
+$$\mathbb{P}(A_{k} | B)$$
+First, 
+\begin{eqnarray*}
+\mathbb{P}(B)&=&\sum_{n=1}^{+\infty}\mathbb{P}(V \leq \frac{n+1}{2n} | \lfloor \frac{1}{U} \rfloor \leq n)\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n)\\
+&=&\sum_{n=1}^{+\infty} \mathbb{P}(V \leq \frac{n+1}{2n})\mathbb{P} (\lfloor \frac{1}{U} \rfloor \leq n)\\
+&=&\sum_{n=1}^{+\infty} \frac{n+1}{2n}\frac{1}{n(n+1)}\\
+&=&\frac{1}{2}\frac{\pi^{2}}{6}
+\end{eqnarray*}
+The second equality stands because U and V are independent.~\\
+~\\
+Then, using the same conditioning trick for $n \leq k$
+\begin{eqnarray*}
+	\mathbb{P}(A_{k},B)&=&\sum_{n=1}^{k}\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n, V \leq \frac{n+1}{2n})\\
+	&=&\sum_{n=1}^{k}\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n)\mathbb{P}(V \leq \frac{n+1}{2n})\\
+	&=&\sum_{n=1}^{k}\frac{1}{2n^{2}}
+\end{eqnarray*}
+Hence, 
+$$P(X \leq k ) = P(A_{k} | B)=\frac{6}{\pi^{2}}\sum_{n=1}^{k}\frac{1}{n^{2}}$$
+Which shows that the output X of the algorithm follows the distribution 
+$$\boxed{p(n)=\frac{6}{\pi^{2}n^{2}}}$$~\\
+~\\
+c. With the same notations as in 1, let us denote 
+$$\tau=\inf_{n}\{n \quad | \quad V_{n} \leq \frac{\lfloor \frac{1}{U} \rfloor + 1}{2\lfloor \frac{1}{U} \rfloor} \}$$
+
+Since the variables at different iterations are independent, the mean number of loops required to return X is 
+\begin{eqnarray*}
+	\mathbb{E}[\tau]&=&\sum_{n=1}^{+\infty}\mathbb{P}(\tau=n)n\\
+	&=&\sum_{n=1}^{+\infty}\mathbb{P}(B^{c})^{k-1}\mathbb{P}(B)n\\
+	&=&\frac{1}{2}\frac{\pi^{2}}{6}\sum_{n=1}^{+\infty}(1-\frac{\pi^{2}}{12})^{k-1}k\\
+	&=&\frac{12}{\pi}\\
+	&\approx& 3.8
+\end{eqnarray*}
+The sum $\sum_{n=1}^{+\infty}(1-\frac{\pi^{2}}{12})^{k-1}k$ is computed by differentiating with respect to x the sum $\sum_{n=1}^{+\infty}x^{k}=\frac{1}{1-x}$.
+
+
+
+\section*{Exercise 2}
+\section*{Exercise 3}
+\section*{Problem}
 %
 %\begin{tabular}{ l c r }
 %   Gaussian mixture with diagonal sigma  & -2843.47  & -2798.08 \\
