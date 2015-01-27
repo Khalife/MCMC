@@ -149,7 +149,30 @@ The sum $\sum_{n=1}^{+\infty}(1-\frac{\pi^{2}}{12})^{k-1}k$ is computed by diffe
 
 
 \section*{Exercise 2}
-
+1. To obtain the distribution of the r.v E at the end of the loop line 4, one needs to compute the conditional distribution $ \mathbb{P}(E \leq x | \quad E'^{2} \leq \frac{2E}{t})$.~\\
+~\\
+Since E and E' are drawn independently with distribution $\mathcal{E}(1)$, we can use the same computation trick as in exercice 1. E and E' are drawn with distribution $\mathcal{E}(1)$.~\\
+~\\
+Then, $\mathbb{P}(E' \geq \frac{tx^{2}}{2})=exp(-\frac{tx^{2}}{2})$
+\begin{eqnarray*}
+	\mathbb{P}(E \leq x | \quad E'^{2} \leq \frac{2E}{t}) = \frac{\int_{u=0}^{x}exp(-u)exp(-\frac{tu^{2}}{2})du}{\int_{u=0}^{+\infty}exp(-u)exp(-\frac{tu^{2}}{2})du}
+\end{eqnarray*}
+Hence, the distribution of the r.v $E_{l_{4}}$ returned at line 4 is a truncated Gaussian.
+$$f_{E_{l_{4}}}(x)=\frac{\textbf{1}_{\mathbb{R}_{+}}(x)exp(\frac{-(x-\mu_1)^{2}}{2\sigma_1^{2}})}{\int_{u=0}^{+\infty}exp(\frac{-(x-\mu_1)^{2}}{2\sigma_1^{2}})du}$$
+with $\mu_1=-\frac{1}{t}$ and $\sigma_1=\frac{1}{\sqrt{t}}$~\\
+~\\
+2. Let us denote X the variable of the line 5 of the algorithm. X is simply the transformation of E :
+$$X=\frac{t}{(1+tE)^{2}}$$
+Then, to obtain the distribution of X, one can use a change of variable in the integral 
+\begin{eqnarray*}
+	\mathbb{E}[\phi(\frac{t}{(1+tE)^{2}})]&=&\mathbb{E}[\phi(X)]\\
+	&=&\int_{\mathbb{R_+}}\phi(\frac{t}{(1+te)^{2}})f_{E_{l_{4}}}(e)de
+\end{eqnarray*}
+$x=\frac{t}{(1+tE)^{2}}$ provides :
+\begin{eqnarray*}
+	f_{X}(x)&=& f_{E_{l_{4}}}(\frac{-1+\sqrt{\frac{t}{u}}}{t})\frac{(1+te)^{3}}{2t}\\
+	&=&(\frac{1}{4(tx)^{3}})^{1/2}\textbf{1}_{\{x \leq t\}} exp(-\frac{1}{2t\sigma^{2}x})
+\end{eqnarray*}
 \section*{Exercise 3}
 \subsection*{1)}
 \subsubsection*{a)}
