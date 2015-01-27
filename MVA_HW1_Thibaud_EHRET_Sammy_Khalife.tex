@@ -168,11 +168,16 @@ Then, to obtain the distribution of X, one can use a change of variable in the i
 	\mathbb{E}[\phi(\frac{t}{(1+tE)^{2}})]&=&\mathbb{E}[\phi(X)]\\
 	&=&\int_{\mathbb{R_+}}\phi(\frac{t}{(1+te)^{2}})f_{E_{l_{4}}}(e)de
 \end{eqnarray*}
-$x=\frac{t}{(1+tE)^{2}}$ provides :
+$x=\frac{t}{(1+tE)^{2}}$ provides \textbf{modulo the normalization constant} :
 \begin{eqnarray*}
 	f_{X}(x)&=& f_{E_{l_{4}}}(\frac{-1+\sqrt{\frac{t}{u}}}{t})\frac{(1+te)^{3}}{2t}\\
-	&=&(\frac{1}{4(tx)^{3}})^{1/2}\textbf{1}_{\{x \leq t\}} exp(-\frac{1}{2t\sigma^{2}x})
+	&=&(\frac{1}{4(tx)^{3}})^{1/2}\textbf{1}_{\{x \leq t\}} exp(-\frac{1}{2t\sigma_1^{2}x})\\
+	&=&(\frac{1}{4(tx)^{3}})^{1/2}\textbf{1}_{\{x \leq t\}} exp(-\frac{1}{2x})
 \end{eqnarray*}
+~\\
+3. One keeps X with probability $exp(-0.5\frac{X}{\mu^{2}})$, then the distribution of the r.v X at line 9 is, \textbf{modulo the normalization constant}  
+$$(\frac{1}{x^{3}})^{1/2}\textbf{1}_{\{x \leq t\}} exp(-\frac{1}{2x}-\frac{x}{2\mu^{2}})$$
+Then, one can identify an inverse Gaussian distribution with parameters $\boxed{\lambda=1}$, and $\boxed{\mu=\mu}$
 \section*{Exercise 3}
 \subsection*{1)}
 \subsubsection*{a)}
