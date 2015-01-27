@@ -1,0 +1,336 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title_page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc} 
+\usepackage[top=1cm,bottom=1cm,left=0.5cm,right=1.5cm,asymmetric]{geometry}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage[boxed,linesnumbered]{algorithm2e}
+\usepackage{bbold}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[R]{\textit{Master MVA : Simulation based learning}}
+\fancyfoot[L]{\textit{}}
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[L]{\textit{}}
+\newcommand{\cond}{(x_i|x_{\pi_i})}
+
+%\usepackage{caption}
+%\usepackage{subcaption}
+
+
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+
+
+%\geometry{hmargin=1.5cm,vmargin=2cm}   
+
+\geometry{hmargin=2.5cm,vmargin=2cm}   
+\begin{document}
+
+\section*{Simulation based learning}
+\section*{Homework 1}
+\section*{Thibaud Ehret \& Sammy Khalife}
+\subsubsection*{25/01/2014}
+
+\section*{Exercise 1}
+1.a. Let us denote $U_{k}$ the algorithm random variable and $S_{k}=\sum_{l=1}^{k}p(l)$ at iteration k. The r.v X follows the p distribution. Indeed it is a discrete r.v and : 
+$$\mathbb{P}(X \leq k)\hat{=}\mathbb{P}(U_{k} \leq S_{k})=length([1,S_{k}])=\sum_{l=1}^{k}p(l)$$~\\
+~\\
+b. Let $\tau$ the time (number of loops) when X is returned :
+$$\tau=\inf_{n}\{n \quad | \quad U_{n} \leq S_{n}\}$$
+Let us denote the event $B_{n}=\{U_{n} \textgreater S_{n}\}$.
+
+$$P(B_{n})=1-\sum_{k=1}^{n}p(k)$$
+Since the $U_{n}$ are i.i.d :
+\begin{eqnarray*}
+\mathbb{P}(\tau=n)=\mathbb{P}(B_{1},.., B_{n-1}, B_{n}^{c})=\quad [\quad \prod_{k=1}^{n-1}\mathbb{P}(B_k) \quad ]\quad \mathbb{P}(B_n^{c})
+\end{eqnarray*}
+
+Then, the number of mean loops required to return X is 
+\begin{eqnarray*}
+	\mathbb{E}[\tau]&=&\sum_{n=1}^{+\infty}\mathbb{P}(\tau=n)n
+\end{eqnarray*}
+With a numerical approximation of this sum (Matlab, N=10000), I obtain a value for the mean number of loops equal to 1.5.~\\
+~\\
+2. a. Given a uniform r.v on [0,1], the density function of the variable $U'=\frac{1}{U}$ is $\frac{1}{u'^{2}}\textbf{1}_{\{u' \geq 1\}}$. To prove it, we can use a change of variable $u'=\frac{1}{u}$ in the integral $\int_{\mathbb{R}}\phi(u)\textbf{1}_{\{u \in [0,1] \}}du$.~\\
+~\\
+Then $\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k)=\mathbb{P}( U' \leq k+1)=\int_{1}^{k+1}\frac{1}{u'^{2}}du'=1-\frac{1}{k+1}$~\\
+~\\
+We conclude that $$\mathbb{P}(\lfloor \frac{1}{U} \rfloor = k)=\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k)-\mathbb{P}(\lfloor \frac{1}{U} \rfloor \leq k-1)=\frac{1}{k(k+1)}$$
+b. Let $A_{k}=\{\lfloor \frac{1}{U} \rfloor \leq k\}$ and $B=\{V\leq \frac{\lfloor \frac{1}{U} \rfloor +1}{2 \lfloor \frac{1}{U} \rfloor} \}$.~\\
+~\\
+For the ouput X of the algorithm, let us consider the distribution 
+$$\mathbb{P}(A_{k} | B)$$
+First, 
+\begin{eqnarray*}
+\mathbb{P}(B)&=&\sum_{n=1}^{+\infty}\mathbb{P}(V \leq \frac{n+1}{2n} | \lfloor \frac{1}{U} \rfloor \leq n)\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n)\\
+&=&\sum_{n=1}^{+\infty} \mathbb{P}(V \leq \frac{n+1}{2n})\mathbb{P} (\lfloor \frac{1}{U} \rfloor \leq n)\\
+&=&\sum_{n=1}^{+\infty} \frac{n+1}{2n}\frac{1}{n(n+1)}\\
+&=&\frac{1}{2}\frac{\pi^{2}}{6}
+\end{eqnarray*}
+The second equality stands because U and V are independent.~\\
+~\\
+Then, using the same conditioning trick for $n \leq k$
+\begin{eqnarray*}
+	\mathbb{P}(A_{k},B)&=&\sum_{n=1}^{k}\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n, V \leq \frac{n+1}{2n})\\
+	&=&\sum_{n=1}^{k}\mathbb{P}(\lfloor \frac{1}{U} \rfloor=n)\mathbb{P}(V \leq \frac{n+1}{2n})\\
+	&=&\sum_{n=1}^{k}\frac{1}{2n^{2}}
+\end{eqnarray*}
+Hence, 
+$$P(X \leq k ) = P(A_{k} | B)=\frac{6}{\pi^{2}}\sum_{n=1}^{k}\frac{1}{n^{2}}$$
+Which shows that the output X of the algorithm follows the distribution 
+$$\boxed{p(n)=\frac{6}{\pi^{2}n^{2}}}$$~\\
+~\\
+c. With the same notations as in 1, let us denote 
+$$\tau=\inf_{n}\{n \quad | \quad V_{n} \leq \frac{\lfloor \frac{1}{U} \rfloor + 1}{2\lfloor \frac{1}{U} \rfloor} \}$$
+
+Since the variables at different iterations are independent, the mean number of loops required to return X is 
+\begin{eqnarray*}
+	\mathbb{E}[\tau]&=&\sum_{n=1}^{+\infty}\mathbb{P}(\tau=n)n\\
+	&=&\sum_{n=1}^{+\infty}\mathbb{P}(B^{c})^{k-1}\mathbb{P}(B)n\\
+	&=&\frac{1}{2}\frac{\pi^{2}}{6}\sum_{n=1}^{+\infty}(1-\frac{\pi^{2}}{12})^{k-1}k\\
+	&=&\frac{12}{\pi}\\
+	&\approx& 3.8
+\end{eqnarray*}
+The sum $\sum_{n=1}^{+\infty}(1-\frac{\pi^{2}}{12})^{k-1}k$ is computed by differentiating with respect to x the sum $\sum_{n=1}^{+\infty}x^{k}=\frac{1}{1-x}$.
+
+
+
+\section*{Exercise 2}
+
+\section*{Exercise 3}
+\subsection*{1)}
+\subsubsection*{a)}
+
+\begin{eqnarray*}
+\mathbb{P}(\psi(X) \in ]-\infty,t]) &=& \mathbb{P}(\psi(X) \in ]-\infty,t] | X \in \mathcal{O}_1) + \mathbb{P}(\psi(X) \in ]-\infty,t] | X \in \mathcal{O}_2)\\
+	&=& \mathbb{P}(\psi_1(X) \in ]-\infty,t] | X \in \mathcal{O}_1) + \mathbb{P}(\psi_2(X) \in ]-\infty,t] | X \in \mathcal{O}_2)\\
+&=& \mathbb{P}(X \in \psi_1^{-1}(]-\infty,t]) | X \in \mathcal{O}_1) + \mathbb{P}(X \in \psi_2^{-1}(]-\infty,t]) | X \in \mathcal{O}_2)\\
+	&=& \int_{\psi_1^{-1}(]-\infty,t])} g(x) dx + \int_{\psi_2^{-1}(]-\infty,t])} g(x) dx\\
+&=& \int_{]-\infty,t]} g(\psi_1^{-1}(y)) |[\psi_1^{-1}]'(y)|dy + \int_{]-\infty,t]} g(\psi_2^{-1}(x)) |[\psi_2^{-1}]'(y)|dy\\
+	&=& \int_{]-\infty,t]} \left(g(\psi_1^{-1}(y)) |\psi_1^{-1}(y)| + g(\psi_2^{-1}(x)) |\psi_2^{-1}(y)|\right) dy\\
+	&=& \int_{]-\infty,t]} h(y) dx
+\end{eqnarray*}
+
+After the change of variable $y = \psi_1(x)$ in the first integral and $y = \psi_2(x)$ in the second integral.
+We can then conclude that $h(y) = g(\psi_1^{-1}(y)) |\psi_1^{-1}(y)| + g(\psi_2^{-1}(x)) |\psi_2^{-1}(y)|$.
+
+\subsubsection*{b)}
+The density of the $Y$ is $h(Y) \times \frac{|[\psi_1^{-1}]'(Y)| g(\psi_1^{-1}(Y))}{h(Y)}$ after the drawing of $Y$ with distribution $h$ and the verification of the condition.
+
+Therefore, if we define the change of variable $x= \psi_1^{-1}(y)$,
+\begin{eqnarray*}
+	\mathbb{P}(X \in ]-\infty,t]) &=& \mathbb{P}(\psi_1^{-1}(Y) \in ]-\infty,t])\\
+	&=& \mathbb{P}(Y \in \psi_1(]-\infty,t]))\\
+	&=& \int_{\psi(]-\infty,t])} h(y) \times \frac{|[\psi_1^{-1}]'(y)| g(\psi_1^{-1}(Y))}{h(y)}dy\\
+	&=& \int_{\psi(]-\infty,t])} |[\psi_1^{-1}]'(y)| g(\psi_1^{-1}(y))dy\\
+	&=& \int_{]-\infty,t]} g(x)dx.
+\end{eqnarray*}
+
+Therefore the distribution of $X$ is $g$. We can show the same way that when the condition is not verified (with probability $\frac{|[\psi_2^{-1}]'(Y)| g(\psi_2^{-1}(Y))}{h(Y)}$) the distribution is $g$.
+
+\subsection*{2)}
+\subsubsection*{a)}
+
+The changing point $x$ is such that $\psi'(x) = 0$.
+\[\psi'(x) = \frac{2(x-\mu)x - (x-\mu)^2}{x^2}\]
+Therefore $x = \mu$, and $\mathcal{0}_1 = [0,\mu]$ and $\mathcal{O}_2 = [\mu,\infty[$.
+
+Let $x$ and $y$ such that $\psi(x) = y$.
+\begin{eqnarray*}
+	y &=& \frac{(x-\mu)^2}{\mu^2x}\\
+	\mu^2xy &=& (x-\mu)^2\\
+	0 &=& x^2-\mu x(2 + \mu y) + \mu^2
+\end{eqnarray*}
+
+The discriminant is $\Delta = \mu^2 (2 + \mu y)^2 - 4\mu^2 = \mu^2 (4 \mu y + \mu^2 y^2) > 0$.
+Therefore, the $2$ possible solutions for $x$ are
+\[x_1 = \frac{\mu(2 + \mu y) - \sqrt{\Delta}}{2} = \mu + \frac{\mu^2 y}{2} - \frac{\mu \sqrt{4 \mu y + \mu^2 y^2}}{2}\]
+and
+\[x_2 = \frac{\mu^2}{x_1}\]
+
+\subsubsection*{b)}
+
+First of all 
+\begin{eqnarray*}
+	[\psi_2^{-1}]'(Y) = - \mu^2 \frac{[\psi_1^{-1}]'(Y)}{\psi_1^{-1}(Y)^2}
+\end{eqnarray*}
+therefore after injecting the previous equation into $\frac{[\psi_1^{-1}]'(Y)}{[\psi_2^{-1}]'(Y)}$, we find 
+\[\frac{[\psi_1^{-1}]'(Y)}{[\psi_2^{-1}]'(Y)} = - \left(\frac{\psi_1^{-1}(Y)}{\mu}\right)^2\]
+
+
+For an inverse gaussian distribution $g$ with parameters $(\mu,\lambda)$,
+\begin{eqnarray*}
+	g(\psi_2^{-1}(y)) &=& \left( \frac{\lambda}{2 \pi \left(\frac{\mu^2}{\psi_1^{-1}(y)}\right)^3} \right)^{1/2} \exp\left( -\frac{\lambda}{2\mu^2} \frac{\left(\frac{\mu^2}{\psi_1^{-1}(y)} - \mu \right)^2}{\left( \frac{\mu^2}{\psi_1^{-1}(y)} \right)} \right)\\
+	&=& \left( \frac{\lambda}{2 \pi \left(\frac{\mu^2}{\psi_1^{-1}(y)}\right)^3} \right)^{1/2} \exp\left( -\frac{\lambda}{2\mu^2} \frac{\frac{\mu^2}{\psi_1^{-1}(y)^2}\left(\mu - \psi_1^{-1}(y) \right)^2}{\left( \frac{\mu^2}{\psi_1^{-1}(y)} \right)} \right)\\
+	&=& \left( \frac{\lambda}{2 \pi \left(\frac{\mu^2}{\psi_1^{-1}(y)}\right)^3} \right)^{1/2} \exp\left( -\frac{\lambda}{2\mu^2} \frac{\left(\mu - \psi_1^{-1}(y) \right)^2}{\psi_1^{-1}(y)} \right)\\
+	&=& \left( \frac{\psi_1^{-1}(y)}{\mu} \right)^3 \left( \frac{\lambda}{2 \pi \psi_1^{-1}(y)^3} \right)^{1/2} \exp\left( -\frac{\lambda}{2\mu^2} \frac{\left(\mu - \psi_1^{-1}(y) \right)^2}{\psi_1^{-1}(y)} \right)\\
+	&=& \left( \frac{\psi_1^{-1}(y)}{\mu} \right)^3 g(\psi_1^{-1}(y)) 
+\end{eqnarray*}
+
+For the inverse gaussian, the condition seen in the first part of the exercise is
+\begin{eqnarray*}
+	\left(1 + \left| \frac{[\psi_2^{-1}]'(y)}{[\psi_1^{-1}]'(y)} \right| \frac {g(\psi_2^{-1}(y))}{g(\psi_1^{-1}(y)} \right)^{-1} &=& \left( 1 + \left(\frac{\mu}{\psi_1^{-1}(Y)}\right)^2 \left( \frac{\psi_1^{-1}(y)}{\mu} \right)^3 \right)^{-1}\\
+	&=& \left( 1 + \frac{\psi_1^{-1}(y)}{\mu}\right)^{-1}\\
+	&=&\frac{\mu}{\mu + \psi_1^{-1}(y)} 
+\end{eqnarray*}
+
+When $X$ follow an inverse gaussian distribution with parameter $(\mu,1)$, $\psi(X)$ follow a $\chi^2$ with one degree of freedom distribution.
+$Y$ at the line 3 has a $\chi^2$ distribution therefore we are in the framework of the first question of the exercise.
+The distribution of $X$ at line $8$ is then an inverse gaussian distribution with parameter $(\mu,1)$.
+
+Considering the last line
+\[ \mathbb{P}(X \leq u | X \leq t) = \frac{\int_{-\infty}^u g(x) \mathbb{1}_{\{]-\infty, t]\}}(x) dx}{\int_{-\infty}^t g(v)dv} =  \int_{-\infty}^u \frac{g(x)\mathbb{1}_{\{]-\infty, t]\}}(x)}{\int_{-\infty}^t g(v)dv}dx\]
+
+Therefore the final density is a truncated inverted gaussian distribution with the parameters the one previously and the truncation interval is $[0, t]$, ($0$ because it is the left boundary of $\mathcal{O}_1$).
+
+\section*{Problem}
+\subsection*{1)}
+\subsubsection*{a)}
+
+If there exists $q \geq 0$ such that $u \leq S_{2q+1}(x)$, because $f_*(x) > S_{2q+1}(x)$ then $f_*(x) > u$.
+Since $S_{2q+1}(x) \rightarrow_{q \rightarrow \infty} f_*(x)$ such that for all $q \in \mathbb{N}$, $S_{2q+1}(x) \leq f_*(x)$, for all $u \in \mathbb{R}$ such that $u < f_{*}(x)$ there exists $q \in \mathbb{N}$ such that $u \leq S_{2q+1}(x)$ (convergence property). 
+
+We can conclude the equivalence.
+
+\subsubsection{b)}
+
+We know that $S_0(x) \geq f_*(x)$ for all $x$ so that we can define $c$ such that $c = \int_{\mathbb{R}} S_0(x)dx$ we have $cg(x) = S_0(x) \geq f_*(x)$ for all $x$, therefore $c \geq \sup_x\left( \frac{f_*(x)}{g(x)} \right)$.
+
+Moreover, with the framework of the rejection sampling algorithm, for $u$ following a distribution $\mathcal{U}([0,1])$, $\mathbb{P}(u < \frac{f(x)}{cg(x)}) = \mathbb{P}(c .u. g(x) < f(x))$. Since we know that $c.u.g(x)$ follow a distribution $\mathcal{U}([0,c.g(x)])$, we can rewrite the rejection sampling algorithm the following way:
+
+\begin{algorithm}[H]
+ \Repeat{$U < f(x)$}{
+	 Draw $X$ with distribution $g$\\
+	 Draw $U$ with distribution $\mathcal{U}([0,c.g(x)])$\\
+  }
+ \Return{X}
+\end{algorithm}
+
+
+The condition for stopping the loop is equivalent to $u \leq f_*(x)$ as we saw in the previous question therefore we are in the framework of the rejection sampling algorithm and the density of $X$ at the end of the algorithm is $f_*$.
+
+\subsection*{2)}
+\subsubsection*{a)}
+
+\begin{eqnarray*}
+	S_0(x) &=& \cosh(z)\exp\left(-\frac{xz^2}{2}\right)\left( \frac{\pi}{2} \left( \frac{2}{\pi x} \right)^{3/2} \exp\left( -\frac{1}{2x}  \right) \mathbb{1}_{\{[0,t]\}}(x)\right.\\
+&& \left.+ \frac{\pi}{2} \exp\left( -\frac{\pi^2 x}{8}  \right) \mathbb{1}_{\{[t,\infty]\}}(x)\right)\\
+&=& \cosh(z)\frac{\pi}{2} \left( \left( \frac{2}{\pi x} \right)^{3/2} \exp\left( -\frac{1}{2x} -\frac{xz^2}{2} \right) \mathbb{1}_{\{[0,t]\}}(x)\right.\\
+&& \left.+ \exp\left( -\frac{\pi^2 x}{8}  -\frac{xz^2}{2}\right) \mathbb{1}_{\{[t,\infty]\}}(x)\right)\\
+&=& \cosh(z)\frac{\pi}{2} \left( \frac{4}{\pi} \left( \frac{1}{2\pi x^3} \right)^{1/2} \exp\left( -\frac{x^2z^2 + 1}{2x} \right) \mathbb{1}_{\{[0,t]\}}(x)\right.\\
+&& \left.+ \exp\left( -\left(\frac{\pi^2}{8}+\frac{z^2}{2}\right)x\right) \mathbb{1}_{\{[t,\infty]\}}(x)\right)\\
+&=& \cosh(z)\frac{\pi}{2} \left( \frac{4}{\pi} \left( \frac{1}{2\pi x^3} \right)^{1/2} \exp\left( -\frac{z^2(x - 1/z)^2 + z}{2x} \right) \mathbb{1}_{\{[0,t]\}}(x)\right.\\
+&& \left.+ \exp\left( -\left(\frac{\pi^2}{8}+\frac{z^2}{2}\right)x\right) \mathbb{1}_{\{[t,\infty]\}}(x)\right)
+\end{eqnarray*}
+
+
+We now define $\lambda = 1$, $\mu = \frac{1}{z}$ and $K = \frac{\pi^2}{8} + \frac{z^2}{2}$.
+
+Then $g$ is proportional to 
+\[\frac{4}{\pi} \left( \frac{\lambda}{2\pi x^3} \right)^{1/2} \exp\left( -\lambda \frac{(x - \mu)^2}{2\mu^2 x} \right) \exp(-z) \mathbb{1}_{\{[0,t]\}}(x)+ \exp\left( -Kx\right) \mathbb{1}_{\{[t,\infty]\}}(x)\]
+Which we can rewrite with $g_1$ being an Inverse gaussian distribution with parameters $(\mu,\lambda)$ defined previously and $g_2$ being an exponential distribution with parameter $K$ defined previously,
+\[\frac{4}{\pi}\exp(-z) g_1(x) \mathbb{1}_{\{[0,t]\}}(x)+ \frac{1}{K}g_2(x)\mathbb{1}_{\{[t,\infty]\}}(x)\]
+
+We also know that $\int_{\mathbb{R}} g(x)dx = 1$ yet
+\begin{eqnarray*}
+	\int_{\mathbb{R}}\left(\frac{4}{\pi}\exp(-z) g_1(x) \mathbb{1}_{\{[0,t]\}}(x)+ \frac{1}{K}\mathbb{1}_{\{[t,\infty]\}}(x)\right)dx &=& \int_{0}^t \frac{4}{\pi}\exp(-z) g_1(x)dx + \int_t^\infty \frac{1}{K}g_2(x)dx\\
+	&=& \frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} (1 - \int_{-\infty}^t g_2(x)dx)\\
+	&=& \frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt)\\
+\end{eqnarray*}
+
+Finally, the distribution $g$ is 
+\begin{eqnarray*}
+	g(x) = \frac{\frac{4}{\pi}exp(-z)}{\frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt)}g_1(x) \mathbb{1}_{\{[0,t]\}}(x)+\\ \frac{1}{K(\frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt))} g_2(x) \mathbb{1}_{\{[t,\infty]\}}(x)
+\end{eqnarray*}
+
+
+We can also consider the truncated version of both distribution $g_1$ and $g_2$ which correspond respectively to $\frac{g_1}{F_{IG}(t)}$ and $\frac{g_2}{\exp(-Kt)}$. We will now note $g_1$ and $g_2$ the truncated version therefore
+\begin{eqnarray*}
+	g(x) = \frac{\frac{4}{\pi}exp(-z)F_{IG}(t)}{\frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt)}g_1(x) \mathbb{1}_{\{[0,t]\}}(x)+\\ \frac{\exp(-Kt)}{K(\frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt))} g_2(x) \mathbb{1}_{\{[t,\infty]\}}(x)
+\end{eqnarray*}
+
+
+We can then write $g$ with $\alpha = \frac{\exp(-Kt)}{K(\frac{4}{\pi} \exp(-z) F_{IG}(t) + \frac{1}{K} \exp(-Kt))}$ which gives
+\[g(x) = (1-\alpha) g_1(x)  \mathbb{1}_{\{[0,t]\}}(x) + \alpha g_2(x)  \mathbb{1}_{\{[t,\infty]\}}(x)\]
+
+\subsubsection*{b)}
+
+\[\mathbb{P}(t + X < u) = \mathbb{P}(X < u-t) = 1 - \exp(-K(u-t)) = \frac{\exp(-Kt) - \exp(-Ku)}{\exp(-Kt)}\]
+Therefore $t + X$ follow the truncated exponential distribution.
+
+
+A simple algorithm to sample from $g_2\mathbb{1}_{\{[t,\infty]\}}$ is then 
+
+\begin{algorithm}[H]
+	Draw $U$ with distribution $\mathcal{U}([0,1])$\\
+	$X \leftarrow -\frac{\ln(u)}{K}$\\ 
+	\Return{t + X}
+	\caption{SampleG2}
+\end{algorithm}
+\subsubsection*{c)}
+
+The algorithm used to sample from $g$ is:
+
+\begin{algorithm}[H]
+	With probability $\alpha$\\
+	Draw $X$ with SampleG2\\
+	Otherwise\\
+	Draw $X$ with SampleG1\\
+	\Return{X}
+	\caption{SampleG}
+\end{algorithm}
+
+\end{document}
